@@ -61,3 +61,8 @@ for _ in arg[2:]:
             show_result() 
         elif _.lower() == ("-create"):
             save_result()
+        else:
+            help = """ analyze textfile_path
+-print -> Print The Words And Count
+-create -> Create A Text File Contains How Many Words Repeated
+            """
