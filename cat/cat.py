@@ -15,14 +15,13 @@ if len(arg) >= 4 :
     filename = arg[3]
 else:
     filename = arg[2]
-
+file = open(filename,'r',encoding='UTF-8')
 # Functions
 def readlines():
     """Read Text Files As Lines\n
 [Number Of The Line] Line
     """
-    with open(filename, 'r+', encoding="UTF-16") as file:
-        for num, line in enumerate(file.readlines(), start=1):
+    for num, line in enumerate(file.readlines(), start=1):
             print(f"[{num}] {line}", end="")
 
 def until_line(line: int):
@@ -32,45 +31,53 @@ def until_line(line: int):
     \n
     line - > int
     """
-    with open(filename, 'r+', encoding="UTF-16") as file:
-        for num, content in enumerate(file.readlines(),start=1):
+    for num, content in enumerate(file.readlines(),start=1):
             if num == line:
                 exit()
             else:
                 print(f"[{num}] {content}",end="")
-
+def special_line(line: int):
+    """
+    This Print The Content Of Line Number [Line]
+    """
+    try:
+         print(f'[{line}] {file.readlines()[line]}')
+    except:
+         print(f"-> Line Wasn't Found")
 def special_text(word: str):
     """Searching The Text File Content
 Until Find "Word" Returns\nNumber Of The Line\nElse "Not Found"
 -------
 word -> String | The Word You Want To Find In The Text File
     """
-    with open(filename, 'r+', encoding="UTF-16") as file:
-        for num, content in enumerate(file.readlines(), start=1):
+    for num, content in enumerate(file.readlines(), start=1):
             if content.lower().strip() == word.lower().strip():
                 print(f'[{num}] {content}',end="")
                 return
-        else:
+    else:
             print('-> Not Found')
 
 # [Option] : [Function]
 options = {
-    "l": readlines,
+    "leh": readlines,
     "find": special_text,
     "ul": until_line,
+    "l":special_line,
 }
 
 def main():
     """The Main Function Which Runs The App"""
     try:
-        if option in ["find", "ul"]:
-            arg[2] = int(arg[2]) + 1 if option == "ul" else str(arg[2])
+        if option in ["find", "ul",'l']:
+            arg[2] = int(arg[2]) + 1 if option in ["ul"] else str(arg[2])
+            arg[2] = int(arg[2]) if option in ['l'] else str(arg[2])
             options[option](arg[2])
         else:
             options[option]()
     except Exception as err:
         print(f"-> {err}")
-
+    finally:
+         file.close()
 try:
     main()
 except Exception as error:
