@@ -1,7 +1,7 @@
 # Read Text Files Made By Arrow-Dev (Ali Hany)
 ### How To Use
 ```
- python cat.py [options] [file]
+ python catty.py [options] [file]
 ```
 ### Options
 ```
